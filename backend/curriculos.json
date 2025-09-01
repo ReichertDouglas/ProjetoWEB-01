@@ -1,0 +1,28 @@
+{
+  "nome": "João Silva",
+  "email": "joao@email.com",
+  "telefone": "(11) 91234-5678",
+  "resumo": "Desenvolvedor Full Stack.",
+  "experiencias": [
+    {
+      "cargo": "Desenvolvedor",
+      "empresa": "Empresa X",
+      "inicio": "2020-01",
+      "fim": "2022-12",
+      "descricao": "Desenvolvimento de sistemas web."
+    }
+  ],
+  "formacoes": [
+    {
+      "curso": "Sistemas de Informação",
+      "instituicao": "Universidade Y",
+      "anoConclusao": "2019"
+    }
+  ],
+  "idiomas": [
+    {
+      "idioma": "Inglês",
+      "nivel": "Avançado"
+    }
+  ]
+}
