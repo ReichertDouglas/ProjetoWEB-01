@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { MainPage } from "../pages/mainpage";
 import { Header } from "../components/header"
 import Footer from "../components/footer";
+import { FormPage } from "../pages/formpage";
 
 export const Router = () => {
   return (
@@ -13,6 +14,7 @@ export const Router = () => {
         <Suspense fallback={<div>Carregando...</div>}>
           <Routes>
             <Route path="/" element={<MainPage />} />
+            <Route path="/form-cv" element={<FormPage />} />
           </Routes>
         </Suspense>
       </main>
