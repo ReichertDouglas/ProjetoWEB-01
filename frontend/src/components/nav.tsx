@@ -8,12 +8,15 @@ export default function Nav() {
   return (
     <nav className="flex justify-center">
       {}
-      <ul className="hidden sm:flex gap-10 text-sm p-3">
+      <ul className="cursor-pointer hidden sm:flex gap-10 text-sm p-3">
         <li className="hover:bg-gray-500">
           {" "}
           <Link to="/"> Início </Link>{" "}
         </li>
-        <li className="hover:bg-gray-500"> Cadastro </li>
+        <li className="hover:bg-gray-500">
+          {" "}
+          <Link to="/criar-curriculo"> Criar </Link>
+        </li>
         <li className="hover:bg-gray-500"> Currículos </li>
         <li className="hover:bg-gray-500">
           <Link to="/contatos"> Visualizar </Link>
@@ -31,7 +34,7 @@ export default function Nav() {
           <ul className="absolute bg-gray-900 p-6 rounded-2xl right-0 bottom-18" 
           onClick={() => setIsOpen(false)}>
             <li className="p-1 hover:bg-gray-500  hover:text-red-300"> <Link to="/"> Início </Link> </li>
-            <li className="p-1 hover:bg-gray-500  hover:text-red-300"> Cadastro </li>
+            <li className="p-1 hover:bg-gray-500  hover:text-red-300"> <Link to="/criar-curriculo"> Criar </Link> </li>
             <li className="p-1 hover:bg-gray-500  hover:text-red-300"> Currículos </li>
             <li className="p-1 hover:bg-gray-500  hover:text-red-300"> <Link to="/contatos"> Visualizar </Link> </li>
           </ul>

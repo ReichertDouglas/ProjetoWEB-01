@@ -1,10 +1,9 @@
 import { FaFileAlt, FaArrowRight } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
-export const MainPage = () => {
-    const navigate = useNavigate();
-    
-    const handleForm = () => navigate('/form-cv');
+export const InicialPage = () => {
+    const navigate = useNavigate();    
+    const handleForm = () => navigate('/criar-curriculo');
 
     return (
         <div className="h-screen w-full bg-gradient-to-r from-blue-900 to-blue-700 flex items-center justify-center text-white px-4">
@@ -16,7 +15,7 @@ export const MainPage = () => {
                 <p className="text-lg text-gray-300 mb-8">
                     Cadastre seu currículo de forma rápida e atraente
                 </p>
-                <button className="bg-cyan-400 text-blue-900 font-semibold px-6 py-3 rounded-lg hover:bg-cyan-300 transition flex items-center justify-center gap-2 mx-auto" onClick={handleForm}>
+                <button className="cursor-pointer bg-cyan-400 text-blue-900 font-semibold px-6 py-3 rounded-lg hover:bg-cyan-300 transition flex items-center justify-center gap-2 mx-auto" onClick={handleForm}>
                     Começar agora <FaArrowRight />
                 </button>
             </div>
