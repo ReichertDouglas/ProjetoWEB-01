@@ -1,8 +1,20 @@
+import React, { Suspense } from "react";
+
+const Nav = React.lazy(() => import("./nav"));
 
 export const Header = () => {
     return (
-        <div className="h-20 min-w-full bg-amber-300">
-            <h1 className="h-full w-fit flex justify-center bg-amber-50 text-4xl">CV Builder</h1>
+    <header className="bg-gray-700 text-white">
+      <div className="flex justify-between items-center px-6 py-4 ">
+        <div className="text-2xl font-extrabold border-1 rounded-full px-4">
+          CV Builder
         </div>
-    )
+      </div>
+      <div>
+        <Suspense fallback={<div> Carregando .... </div>}>
+            <Nav />
+        </Suspense>
+      </div>
+    </header>
+  );
 }
