@@ -5,6 +5,7 @@ import { InicialPage } from "../pages/inicialpage";
 import { Header } from "../components/header"
 import Footer from "../components/footer";
 import { CriarCurriculoPage } from "../pages/criarcurriculopage";
+import { ListarCurriculosPage } from "../pages/listarcurriculospage";
 
 export const Router = () => {
   return (
@@ -15,6 +16,7 @@ export const Router = () => {
           <Routes>
             <Route path="/" element={<InicialPage />} />
             <Route path="/criar-curriculo" element={<CriarCurriculoPage />} />
+            <Route path="/listar-curriculos" element={<ListarCurriculosPage />} />
           </Routes>
         </Suspense>
       </main>
