@@ -1,11 +1,14 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { Suspense } from "react";
 
-import { InicialPage } from "../pages/inicialpage";
 import { Header } from "../components/header"
 import Footer from "../components/footer";
 import { CriarCurriculoPage } from "../pages/criarcurriculopage";
-import { ListarCurriculosPage } from "../pages/listarcurriculospage";
+import React from "react";
+
+const InicialPage = React.lazy(() => import("../pages/inicialpage"));
+const ListarCurriculosPage = React.lazy(() => import("../pages/listarcurriculospage"));
+const Curriculo = React.lazy(() => import("../pages/curriculos/[id]/curriculo"));
 
 export const Router = () => {
   return (
@@ -17,6 +20,7 @@ export const Router = () => {
             <Route path="/" element={<InicialPage />} />
             <Route path="/criar-curriculo" element={<CriarCurriculoPage />} />
             <Route path="/listar-curriculos" element={<ListarCurriculosPage />} />
+            <Route path="/curriculos/:id" element={<Curriculo />} />
           </Routes>
         </Suspense>
       </main>

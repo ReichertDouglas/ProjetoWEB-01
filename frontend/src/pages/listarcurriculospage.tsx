@@ -1,4 +1,5 @@
 import { FaUserCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const fakeData = [
   {
@@ -15,7 +16,9 @@ const fakeData = [
   },
 ];
 
-export const ListarCurriculosPage = () => {
+export default function ListarCurriculosPage() {
+    const navigate = useNavigate();
+
 return (
     <div className="min-h-screen bg-gray-100 py-12 px-4">
       <div className="max-w-5xl mx-auto bg-white shadow-md rounded-lg p-6">
@@ -38,7 +41,7 @@ return (
                     <p className="text-sm text-gray-600">{cv.telefone}</p>
                   </div>
                 </div>
-                <button className="text-sm text-blue-600 hover:underline cursor-pointer">Visualizar</button>
+                <button className="text-sm text-blue-600 hover:underline cursor-pointer" onClick={() => navigate(`/curriculos/${cv.id}`)}>Visualizar</button>
               </li>
             ))}
           </ul>

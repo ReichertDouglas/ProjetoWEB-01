@@ -1,8 +1,8 @@
 import { FaFileAlt, FaArrowRight } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
-export const InicialPage = () => {
-    const navigate = useNavigate();    
+export default function InicialPage() {
+    const navigate = useNavigate();
     const handleForm = () => navigate('/criar-curriculo');
 
     return (
