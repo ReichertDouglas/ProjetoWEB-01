@@ -95,8 +95,6 @@ export default function EditarCurriculoPage() {
       try {
         const response = await axios.get(`http://localhost:3001/curriculos/${id}`);
         const data = response.data;
-        console.log('data', data)
-        // Mapeia do backend para frontend
         const curriculoFormatado = {
           fullName: data.nome || '',
           email: data.email || '',
@@ -129,7 +127,6 @@ export default function EditarCurriculoPage() {
         };
 
         reset(curriculoFormatado);
-        console.log('Currículo formatado para reset:', curriculoFormatado);
       } catch (error) {
         console.error('Erro ao carregar currículo:', error);
         alert('Erro ao carregar currículo.');
@@ -178,7 +175,7 @@ export default function EditarCurriculoPage() {
       if (response.status !== 200) throw new Error('Erro ao atualizar currículo');
 
       alert('Currículo atualizado com sucesso!');
-      navigate('/listar-curriculos'); // ou onde quiser redirecionar após salvar
+      navigate('/visualizar-curriculos'); // ou onde quiser redirecionar após salvar
     } catch (error) {
       console.error('Erro ao atualizar currículo:', error);
       alert('Erro ao atualizar currículo.');
@@ -281,7 +278,7 @@ export default function EditarCurriculoPage() {
         <button
           type="button"
           className="cursor-pointer mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-          onClick={() => navigate('/listar-curriculos')}
+          onClick={() => navigate('/visualizar-curriculos')}
         >
           Cancelar
         </button>

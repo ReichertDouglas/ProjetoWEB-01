@@ -19,7 +19,7 @@ export default function Nav() {
         </li>
         <li className="hover:bg-gray-500">
           {" "}
-          <Link to="/listar-curriculos"> Currículos </Link>
+          <Link to="/visualizar-curriculos"> Visualizar currículos </Link>
         </li>
       </ul>
       {}
@@ -35,7 +35,7 @@ export default function Nav() {
           onClick={() => setIsOpen(false)}>
             <li className="p-1 hover:bg-gray-500  hover:text-red-300"> <Link to="/"> Início </Link> </li>
             <li className="p-1 hover:bg-gray-500  hover:text-red-300"> <Link to="/criar-curriculo"> Criar </Link> </li>
-            <li className="p-1 hover:bg-gray-500  hover:text-red-300"> <Link to="/listar-curriculos"> Currículos </Link> </li>
+            <li className="p-1 hover:bg-gray-500  hover:text-red-300"> <Link to="/visualizar-curriculos"> Visualizar currículos </Link> </li>
           </ul>
         )}
       </div>

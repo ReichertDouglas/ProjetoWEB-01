@@ -15,7 +15,7 @@
     "resumo": "Meu resumo profissional de react",
     "experiencias": [
       {
-        "cargo": "Dev",
+        "cargo": "estagiario",
         "empresa": "123131231",
         "inicio": "2222-02-22",
         "fim": "2222-02-22",
@@ -32,6 +32,85 @@
     "idiomas": [
       {
         "idioma": "ingres",
+        "nivel": "Básico"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "nome": "Gabriel Simon",
+    "email": "gabrielsimon775@gmail.com",
+    "telefone": "(47) 99999-9999",
+    "endereco": {
+      "cep": "80945-070",
+      "rua": "testes",
+      "numero": "akamdka",
+      "bairro": "teste",
+      "cidade": "teste",
+      "estado": "teste"
+    },
+    "resumo": "sdadadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "experiencias": [
+      {
+        "cargo": "Dev",
+        "empresa": "Senai",
+        "inicio": "2222-02-22",
+        "fim": "2222-02-22",
+        "descricao": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    ],
+    "formacoes": [
+      {
+        "curso": "asnoadoadoan",
+        "instituicao": "senai",
+        "anoConclusao": "dosakndaodnao"
+      }
+    ],
+    "idiomas": [
+      {
+        "idioma": "ddasdasd",
+        "nivel": "Intermediário"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "nome": "nicolas",
+    "email": "a@aaada",
+    "telefone": "(13) 12323-1313",
+    "endereco": {
+      "cep": "2313131313131",
+      "rua": "31123123",
+      "numero": "21",
+      "bairro": "31",
+      "cidade": "313",
+      "estado": "231"
+    },
+    "resumo": "3333333333333333333333333333333333333333333333333333",
+    "experiencias": [
+      {
+        "cargo": "Dev",
+        "empresa": "Senai",
+        "inicio": "2222-02-22",
+        "fim": "2222-02-22",
+        "descricao": "dadadsadsadadadsdsaddadads"
+      }
+    ],
+    "formacoes": [
+      {
+        "curso": "asnoadoadoan",
+        "instituicao": "senai",
+        "anoConclusao": "dosakndaodnao"
+      },
+      {
+        "curso": "adadsa",
+        "instituicao": "dasdasddads",
+        "anoConclusao": "asdada"
+      }
+    ],
+    "idiomas": [
+      {
+        "idioma": "sndaosdaodn",
         "nivel": "Básico"
       }
     ]

@@ -84,7 +84,7 @@ export default function ListarCurriculosPage() {
                 </div>
                 <button
                   className="text-sm text-blue-600 hover:underline cursor-pointer"
-                  onClick={() => navigate(`/curriculos/${cv.id}`)}
+                  onClick={() => navigate(`/curriculo/${cv.id}`)}
                 >
                   Visualizar
                 </button>

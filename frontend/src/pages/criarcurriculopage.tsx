@@ -45,7 +45,7 @@ const schema = yup.object().shape({
 
 export const CriarCurriculoPage = () => {
   const navigate = useNavigate();
-  const listaCurriculos = () => navigate('/listar-curriculos');
+  const listaCurriculos = () => navigate('/visualizar-curriculos');
 
   const {
     register,
@@ -194,7 +194,7 @@ export const CriarCurriculoPage = () => {
       {/* Ações */}
       <div className="flex justify-between pt-4">
         <button type="submit" className="cursor-pointer mt-2 px-4 py-2 bg-green-800 text-white rounded hover:bg-green-600">
-          Salvar
+          Salvar Currículo
         </button>
         <button type="button" className="cursor-pointer mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" onClick={() => reset()}>
           Cancelar
