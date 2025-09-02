@@ -9,6 +9,7 @@ import React from "react";
 const InicialPage = React.lazy(() => import("../pages/inicialpage"));
 const ListarCurriculosPage = React.lazy(() => import("../pages/listarcurriculospage"));
 const Curriculo = React.lazy(() => import("../pages/curriculos/[id]/curriculo"));
+const EditarCurriculoPage = React.lazy(() => import("../pages/editarcurriculopage"));
 
 export const Router = () => {
   return (
@@ -21,6 +22,7 @@ export const Router = () => {
             <Route path="/criar-curriculo" element={<CriarCurriculoPage />} />
             <Route path="/listar-curriculos" element={<ListarCurriculosPage />} />
             <Route path="/curriculos/:id" element={<Curriculo />} />
+            <Route path="/editar-curriculo/:id" element={<EditarCurriculoPage />} />
           </Routes>
         </Suspense>
       </main>

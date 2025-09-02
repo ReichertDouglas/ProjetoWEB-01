@@ -2,45 +2,51 @@ import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from 'yup';
 import { IMaskInput } from 'react-imask';
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
+// Schema com campos em português e validações
 const schema = yup.object().shape({
-  fullName: yup.string().required('Nome é obrigatório').min(3),
+  nome: yup.string().required('Nome é obrigatório').min(3, 'Mínimo 3 caracteres'),
   email: yup.string().required('Email é obrigatório').email('Email inválido'),
-  phone: yup.string().required('Telefone é obrigatório'),
-  address: yup.object().shape({
+  telefone: yup.string().required('Telefone é obrigatório'),
+  endereco: yup.object().shape({
     cep: yup.string().required('CEP é obrigatório'),
-    street: yup.string().required('Rua é obrigatória'),
-    number: yup.string().required('Número é obrigatório'),
-    neighborhood: yup.string().required('Bairro é obrigatório'),
-    city: yup.string().required('Cidade é obrigatória'),
-    state: yup.string().required('Estado é obrigatório'),
+    rua: yup.string().required('Rua é obrigatória'),
+    numero: yup.string().required('Número é obrigatório'),
+    bairro: yup.string().required('Bairro é obrigatório'),
+    cidade: yup.string().required('Cidade é obrigatória'),
+    estado: yup.string().required('Estado é obrigatório'),
   }),
-  summary: yup.string().required('Resumo é obrigatório').min(30, 'Mínimo 30 caracteres'),
-  experiences: yup.array().of(
+  resumo: yup.string().required('Resumo é obrigatório').min(30, 'Resumo deve ter no mínimo 30 caracteres'),
+  experiencias: yup.array().of(
     yup.object().shape({
-      role: yup.string().required(),
-      company: yup.string().required(),
-      startDate: yup.string().required(),
-      endDate: yup.string().required(),
-      description: yup.string().required(),
+      cargo: yup.string().required('Cargo é obrigatório'),
+      empresa: yup.string().required('Empresa é obrigatória'),
+      inicio: yup.string().required('Data de início é obrigatória'),
+      fim: yup.string().required('Data de fim é obrigatória'),
+      descricao: yup.string().required('Descrição é obrigatória'),
     })
   ),
-  education: yup.array().of(
+  formacoes: yup.array().of(
     yup.object().shape({
-      course: yup.string().required(),
-      institution: yup.string().required(),
-      year: yup.string().required(),
+      curso: yup.string().required('Curso é obrigatório'),
+      instituicao: yup.string().required('Instituição é obrigatória'),
+      anoConclusao: yup.string().required('Ano de conclusão é obrigatório'),
     })
   ),
-  languages: yup.array().of(
+  idiomas: yup.array().of(
     yup.object().shape({
-      language: yup.string().required(),
-      level: yup.string().required(),
+      idioma: yup.string().required('Idioma é obrigatório'),
+      nivel: yup.string().required('Nível é obrigatório'),
     })
   ),
 });
 
 export const CriarCurriculoPage = () => {
+  const navigate = useNavigate();
+  const listaCurriculos = () => navigate('/listar-curriculos');
+
   const {
     register,
     control,
@@ -50,30 +56,51 @@ export const CriarCurriculoPage = () => {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      experiences: [{ role: '', company: '', startDate: '', endDate: '', description: '' }],
-      education: [{ course: '', institution: '', year: '' }],
-      languages: [{ language: '', level: '' }],
+      nome: '',
+      email: '',
+      telefone: '',
+      endereco: {
+        cep: '',
+        rua: '',
+        numero: '',
+        bairro: '',
+        cidade: '',
+        estado: '',
+      },
+      resumo: '',
+      experiencias: [{ cargo: '', empresa: '', inicio: '', fim: '', descricao: '' }],
+      formacoes: [{ curso: '', instituicao: '', anoConclusao: '' }],
+      idiomas: [{ idioma: '', nivel: '' }],
     },
   });
 
-  const { fields: experienceFields, append: addExperience } = useFieldArray({
+  const { fields: experienciaFields, append: addExperiencia } = useFieldArray({
     control,
-    name: 'experiences',
+    name: 'experiencias',
   });
 
-  const { fields: educationFields, append: addEducation } = useFieldArray({
+  const { fields: formacaoFields, append: addFormacao } = useFieldArray({
     control,
-    name: 'education',
+    name: 'formacoes',
   });
 
-  const { fields: languageFields, append: addLanguage } = useFieldArray({
+  const { fields: idiomaFields, append: addIdioma } = useFieldArray({
     control,
-    name: 'languages',
+    name: 'idiomas',
   });
 
-  const onSubmit = (data: any) => {
-    console.log('Currículo:', data);
-    alert('Currículo salvo com sucesso!');
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post("http://localhost:3001/curriculos", data);
+      if (response.status !== 201) throw new Error("Erro ao salvar currículo");
+
+      alert("Currículo salvo com sucesso!");
+      reset();
+      listaCurriculos();
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao salvar currículo.");
+    }
   };
 
   return (
@@ -81,75 +108,77 @@ export const CriarCurriculoPage = () => {
       {/* Informações Pessoais */}
       <h2 className="text-xl font-bold">Informações Pessoais</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input {...register('fullName')} placeholder="Nome completo" className="input" />
-        <p className="text-red-500 text-sm">{errors.fullName?.message}</p>
-
-        <input {...register('email')} placeholder="Email" className="input" />
-        <p className="text-red-500 text-sm">{errors.email?.message}</p>
-
-        <Controller
-        name="phone"
-        control={control}
-        rules={{ required: 'Telefone é obrigatório' }}
-        render={({ field }) => (
-          <IMaskInput
-            {...field}
-            mask="(00) 00000-0000"
-            placeholder="Telefone"
-            className="input"
-            onAccept={(value) => field.onChange(value)} // importante para atualizar o valor corretamente
+        <div>
+          <input {...register('nome')} placeholder="Nome completo" className="input" />
+          <p className="text-red-500 text-sm">{errors.nome?.message}</p>
+        </div>
+        <div>
+          <input {...register('email')} placeholder="Email" className="input" />
+          <p className="text-red-500 text-sm">{errors.email?.message}</p>
+        </div>
+        <div>
+          <Controller
+            name="telefone"
+            control={control}
+            render={({ field }) => (
+              <IMaskInput
+                {...field}
+                mask="(00) 00000-0000"
+                placeholder="Telefone"
+                className="input"
+                onAccept={(value) => field.onChange(value)}
+              />
+            )}
           />
-        )}
-      />
-        <p className="text-red-500 text-sm">{errors.phone?.message}</p>
-
-        <input {...register('address.cep')} placeholder="CEP" className="input" />
-        <input {...register('address.street')} placeholder="Rua" className="input" />
-        <input {...register('address.number')} placeholder="Número" className="input" />
-        <input {...register('address.neighborhood')} placeholder="Bairro" className="input" />
-        <input {...register('address.city')} placeholder="Cidade" className="input" />
-        <input {...register('address.state')} placeholder="Estado" className="input" />
+          <p className="text-red-500 text-sm">{errors.telefone?.message}</p>
+        </div>
+        <input {...register('endereco.cep')} placeholder="CEP" className="input" />
+        <input {...register('endereco.rua')} placeholder="Rua" className="input" />
+        <input {...register('endereco.numero')} placeholder="Número" className="input" />
+        <input {...register('endereco.bairro')} placeholder="Bairro" className="input" />
+        <input {...register('endereco.cidade')} placeholder="Cidade" className="input" />
+        <input {...register('endereco.estado')} placeholder="Estado" className="input" />
       </div>
 
       {/* Resumo Profissional */}
       <h2 className="text-xl font-bold">Resumo Profissional</h2>
-      <textarea {...register('summary')} placeholder="Resumo profissional" className="input h-24" />
-      <p className="text-red-500 text-sm">{errors.summary?.message}</p>
+      <textarea {...register('resumo')} placeholder="Resumo profissional" className="input h-24" />
+      <p className="text-red-500 text-sm">{errors.resumo?.message}</p>
 
       {/* Experiência Profissional */}
       <h2 className="text-xl font-bold">Experiência Profissional</h2>
-      {experienceFields.map((item, index) => (
+      {experienciaFields.map((item, index) => (
         <div key={item.id} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input {...register(`experiences.${index}.role`)} placeholder="Cargo" className="input" />
-          <input {...register(`experiences.${index}.company`)} placeholder="Empresa" className="input" />
-          <input type="date" {...register(`experiences.${index}.startDate`)} className="input" />
-          <input type="date" {...register(`experiences.${index}.endDate`)} className="input" />
-          <textarea {...register(`experiences.${index}.description`)} placeholder="Descrição" className="input h-20" />
+          <input {...register(`experiencias.${index}.cargo`)} placeholder="Cargo" className="input" />
+          <input {...register(`experiencias.${index}.empresa`)} placeholder="Empresa" className="input" />
+          <input type="date" {...register(`experiencias.${index}.inicio`)} className="input" />
+          <input type="date" {...register(`experiencias.${index}.fim`)} className="input" />
+          <textarea {...register(`experiencias.${index}.descricao`)} placeholder="Descrição" className="input h-20" />
         </div>
       ))}
-      <button type="button" onClick={() => addExperience({role: '', company: '', startDate: '', endDate: '', description: ''})} className="">
+      <button type="button" onClick={() => addExperiencia({ cargo: '', empresa: '', inicio: '', fim: '', descricao: '' })} className="btn">
         Adicionar Experiência
       </button>
 
       {/* Formação Acadêmica */}
       <h2 className="text-xl font-bold">Formação Acadêmica</h2>
-      {educationFields.map((item, index) => (
+      {formacaoFields.map((item, index) => (
         <div key={item.id} className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <input {...register(`education.${index}.course`)} placeholder="Curso" className="input" />
-          <input {...register(`education.${index}.institution`)} placeholder="Instituição" className="input" />
-          <input type="text" {...register(`education.${index}.year`)} placeholder="Ano de Conclusão" className="input" />
+          <input {...register(`formacoes.${index}.curso`)} placeholder="Curso" className="input" />
+          <input {...register(`formacoes.${index}.instituicao`)} placeholder="Instituição" className="input" />
+          <input type="text" {...register(`formacoes.${index}.anoConclusao`)} placeholder="Ano de Conclusão" className="input" />
         </div>
       ))}
-      <button type="button" onClick={() => addEducation({ institution: '', year: '', course: '' })} className="btn">
+      <button type="button" onClick={() => addFormacao({ curso: '', instituicao: '', anoConclusao: '' })} className="btn">
         Adicionar Formação
       </button>
 
       {/* Idiomas */}
       <h2 className="text-xl font-bold">Idiomas</h2>
-      {languageFields.map((item, index) => (
+      {idiomaFields.map((item, index) => (
         <div key={item.id} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input {...register(`languages.${index}.language`)} placeholder="Idioma" className="input" />
-          <select {...register(`languages.${index}.level`)} className="input">
+          <input {...register(`idiomas.${index}.idioma`)} placeholder="Idioma" className="input" />
+          <select {...register(`idiomas.${index}.nivel`)} className="input">
             <option value="">Selecione o nível</option>
             <option value="Básico">Básico</option>
             <option value="Intermediário">Intermediário</option>
@@ -158,18 +187,18 @@ export const CriarCurriculoPage = () => {
           </select>
         </div>
       ))}
-      <button type="button" onClick={() => addLanguage({ language: '', level: '' })} className="btn">
+      <button type="button" onClick={() => addIdioma({ idioma: '', nivel: '' })} className="btn">
         Adicionar Idioma
       </button>
 
       {/* Ações */}
       <div className="flex justify-between pt-4">
-        <button type="submit" className="mt-2 px-4 py-2 bg-green-800 text-white rounded hover:bg-green-600">
+        <button type="submit" className="cursor-pointer mt-2 px-4 py-2 bg-green-800 text-white rounded hover:bg-green-600">
           Salvar
         </button>
-        <button className="mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+        <button type="button" className="cursor-pointer mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" onClick={() => reset()}>
           Cancelar
-        </button> 
+        </button>
       </div>
     </form>
   );

@@ -27,7 +27,6 @@ app.get('/', (req, res) => {
 app.post("/curriculos", (req, res) => {
   const curriculos = readCurriculos()
   const formData = req.body;
-
   const novoCurriculo = {
     id: curriculos.length > 0 ? curriculos[curriculos.length - 1].id + 1 : 1,
     ...formData,
