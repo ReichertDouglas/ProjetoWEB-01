@@ -1,78 +1,22 @@
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from 'yup';
 import { IMaskInput } from 'react-imask';
-import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-
-// Schema com campos em português e validações
-const schema = yup.object().shape({
-  nome: yup.string().required('Nome é obrigatório').min(3, 'Mínimo 3 caracteres'),
-  email: yup.string().required('Email é obrigatório').email('Email inválido'),
-  telefone: yup.string().required('Telefone é obrigatório'),
-  endereco: yup.object().shape({
-    cep: yup.string().required('CEP é obrigatório'),
-    rua: yup.string().required('Rua é obrigatória'),
-    numero: yup.string().required('Número é obrigatório'),
-    bairro: yup.string().required('Bairro é obrigatório'),
-    cidade: yup.string().required('Cidade é obrigatória'),
-    estado: yup.string().required('Estado é obrigatório'),
-  }),
-  resumo: yup.string().required('Resumo é obrigatório').min(30, 'Resumo deve ter no mínimo 30 caracteres'),
-  experiencias: yup.array().of(
-    yup.object().shape({
-      cargo: yup.string().required('Cargo é obrigatório'),
-      empresa: yup.string().required('Empresa é obrigatória'),
-      inicio: yup.string().required('Data de início é obrigatória'),
-      fim: yup.string().required('Data de fim é obrigatória'),
-      descricao: yup.string().required('Descrição é obrigatória'),
-    })
-  ),
-  formacoes: yup.array().of(
-    yup.object().shape({
-      curso: yup.string().required('Curso é obrigatório'),
-      instituicao: yup.string().required('Instituição é obrigatória'),
-      anoConclusao: yup.string().required('Ano de conclusão é obrigatório'),
-    })
-  ),
-  idiomas: yup.array().of(
-    yup.object().shape({
-      idioma: yup.string().required('Idioma é obrigatório'),
-      nivel: yup.string().required('Nível é obrigatório'),
-    })
-  ),
-});
+import { onSubmit } from '../controllers/curriculocontroller';
+import { CurriculoSchema } from "../pages/schemas/curriculoschema";
+import { curriculo } from './types/curriculo';
+import { nivel } from './types/nivel';
 
 export const CriarCurriculoPage = () => {
   const navigate = useNavigate();
   const listaCurriculos = () => navigate('/visualizar-curriculos');
 
   const {
-    register,
     control,
+    register,
     handleSubmit,
     formState: { errors },
-    reset,
-  } = useForm({
-    resolver: yupResolver(schema),
-    defaultValues: {
-      nome: '',
-      email: '',
-      telefone: '',
-      endereco: {
-        cep: '',
-        rua: '',
-        numero: '',
-        bairro: '',
-        cidade: '',
-        estado: '',
-      },
-      resumo: '',
-      experiencias: [{ cargo: '', empresa: '', inicio: '', fim: '', descricao: '' }],
-      formacoes: [{ curso: '', instituicao: '', anoConclusao: '' }],
-      idiomas: [{ idioma: '', nivel: '' }],
-    },
-  });
+  } = useForm<curriculo>({ resolver: yupResolver(CurriculoSchema) });
 
   const { fields: experienciaFields, append: addExperiencia } = useFieldArray({
     control,
@@ -88,20 +32,6 @@ export const CriarCurriculoPage = () => {
     control,
     name: 'idiomas',
   });
-
-  const onSubmit = async (data) => {
-    try {
-      const response = await axios.post("http://localhost:3001/curriculos", data);
-      if (response.status !== 201) throw new Error("Erro ao salvar currículo");
-
-      alert("Currículo salvo com sucesso!");
-      reset();
-      listaCurriculos();
-    } catch (error) {
-      console.error(error);
-      alert("Erro ao salvar currículo.");
-    }
-  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg space-y-6">
@@ -169,7 +99,7 @@ export const CriarCurriculoPage = () => {
           <input type="text" {...register(`formacoes.${index}.anoConclusao`)} placeholder="Ano de Conclusão" className="input" />
         </div>
       ))}
-      <button type="button" onClick={() => addFormacao({ curso: '', instituicao: '', anoConclusao: '' })} className="btn">
+      <button type="button" onClick={() => addFormacao({ curso: '', instituicao: '', anoConclusao: 0 })} className="btn">
         Adicionar Formação
       </button>
 
@@ -180,14 +110,14 @@ export const CriarCurriculoPage = () => {
           <input {...register(`idiomas.${index}.idioma`)} placeholder="Idioma" className="input" />
           <select {...register(`idiomas.${index}.nivel`)} className="input">
             <option value="">Selecione o nível</option>
-            <option value="Básico">Básico</option>
-            <option value="Intermediário">Intermediário</option>
-            <option value="Avançado">Avançado</option>
-            <option value="Fluente">Fluente</option>
+            <option value="BASICO">Básico</option>
+            <option value="INTERMEDIARIO">Intermediário</option>
+            <option value="AVANCADO">Avançado</option>
+            <option value="FLUENTE">Fluente</option>
           </select>
         </div>
       ))}
-      <button type="button" onClick={() => addIdioma({ idioma: '', nivel: '' })} className="btn">
+      <button type="button" onClick={() => addIdioma({ idioma: '', nivel: nivel.BASICO })} className="btn">
         Adicionar Idioma
       </button>
 
@@ -196,7 +126,7 @@ export const CriarCurriculoPage = () => {
         <button type="submit" className="cursor-pointer mt-2 px-4 py-2 bg-green-800 text-white rounded hover:bg-green-600">
           Salvar Currículo
         </button>
-        <button type="button" className="cursor-pointer mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" onClick={() => reset()}>
+        <button type="button" className="cursor-pointer mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" onClick={() => listaCurriculos()}>
           Cancelar
         </button>
       </div>

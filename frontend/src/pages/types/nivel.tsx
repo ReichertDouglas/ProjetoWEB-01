@@ -1,0 +1,6 @@
+export enum nivel {
+    BASICO = "BASICO",
+    INTERMEDIARIO = "INTERMEDIARIO",
+    AVANCADO = "AVANCADO",
+    FLUENTE = "FLUENTE"
+}
