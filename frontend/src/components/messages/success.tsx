@@ -1,11 +1,10 @@
 import Swal from "sweetalert2";
 import confetti from "canvas-confetti";
-import { useNavigate } from 'react-router-dom';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 const NAVIGATE_URL = '/visualizar-curriculos';
 
-export const successCreate = () => {
-  const navigate = useNavigate();
+export const successCreate = (navigate: NavigateFunction) => {
   confetti({
     particleCount: 600,
     spread: 200,

@@ -31,7 +31,7 @@ export const CriarCurriculoPage = () => {
       const response = await onSubmit(data);
 
       if (response.status === 201) {
-        successCreate()
+        successCreate(navigate)
         setTimeout(() => {
           listaCurriculos();
         }, 2000);
@@ -44,7 +44,6 @@ export const CriarCurriculoPage = () => {
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg space-y-6">
-      {/* Informações Pessoais */}
       <h2 className="text-xl font-bold">Informações Pessoais</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
         <div>
@@ -99,12 +98,10 @@ export const CriarCurriculoPage = () => {
         </div>
       </div>
 
-      {/* Resumo Profissional */}
       <h2 className="text-xl font-bold">Resumo Profissional</h2>
       <textarea {...register('resumo')} className="w-full h-24 border-1 rounded" />
       <p className="text-red-500 text-sm">{errors.resumo?.message}</p>
 
-      {/* Experiência Profissional */}
       <h2 className="text-xl font-bold">Experiência Profissional</h2>
       {experienciaFields.map((item, index) => (
         <div key={item.id} className="text-center">
@@ -136,7 +133,6 @@ export const CriarCurriculoPage = () => {
         Adicionar Experiência
       </button>
 
-      {/* Formação Acadêmica */}
       <h2 className="text-xl font-bold">Formação Acadêmica</h2>
       {formacaoFields.map((item, index) => (
         <div key={item.id} className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
@@ -158,7 +154,6 @@ export const CriarCurriculoPage = () => {
         Adicionar Formação
       </button>
 
-      {/* Idiomas */}
       <h2 className="text-xl font-bold">Idiomas</h2>
       {idiomaFields.map((item, index) => (
         <div key={item.id} className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
@@ -182,7 +177,6 @@ export const CriarCurriculoPage = () => {
         Adicionar Idioma
       </button>
 
-      {/* Ações */}
       <div className="flex justify-between pt-4">
         <button type="submit" className="cursor-pointer mt-2 px-4 py-2 bg-green-800 text-white rounded hover:bg-green-600">
           Salvar Currículo
