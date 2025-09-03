@@ -24,8 +24,7 @@ export const successCreate = (navigate: NavigateFunction) => {
   });
 }
 
-export const successUpdate = () => {
-  const navigate = useNavigate();
+export const successUpdate = (navigate: NavigateFunction) => {
   Swal.fire({
     title: "Currículo atualizado com sucesso!",
     text: "Seu currículo foi atualizado com sucesso!",
