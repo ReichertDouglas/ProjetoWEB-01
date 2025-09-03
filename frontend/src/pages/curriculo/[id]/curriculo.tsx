@@ -1,82 +1,95 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { fetchCurriculoById } from "../../../controllers/curriculocontroller";
+import { useNavigate } from 'react-router-dom';
 
 export default function Curriculo() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [curriculo, setCurriculo] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState(false);
 
-  useEffect(() => {
-    const fetchCurriculo = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3001/curriculos/${id}`);
-        setCurriculo(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar currículo:", error);
+useEffect(() => {
+  const getCurriculo = async () => {
+      const result = await fetchCurriculoById(id as string);
+      if (result.error || !result.data) {
         setErro(true);
-      } finally {
-        setLoading(false);
+      } else {
+        setCurriculo(result.data);
       }
+      setLoading(false);
     };
-
-    fetchCurriculo();
+    getCurriculo();
   }, [id]);
 
   if (loading) return <div className="p-6 text-gray-500">Carregando...</div>;
   if (erro || !curriculo) return <div className="p-6 text-red-500">Currículo não encontrado.</div>;
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4">
-      <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold mb-4">Detalhes do Currículo</h1>
-
-        <p><strong>Nome:</strong> {curriculo.nome}</p>
-        <p><strong>Email:</strong> {curriculo.email}</p>
-        <p><strong>Telefone:</strong> {curriculo.telefone}</p>
-        <p><strong>Resumo:</strong> {curriculo.resumo}</p>
-
-        <div className="mt-4">
-          <h2 className="text-lg font-semibold">Endereço</h2>
-          <p>{curriculo.endereco?.rua}, {curriculo.endereco?.numero}</p>
-          <p>{curriculo.endereco?.bairro} - {curriculo.endereco?.cidade}/{curriculo.endereco?.estado}</p>
-          <p>CEP: {curriculo.endereco?.cep}</p>
+    <div className="min-h-screen bg-gray-100 py-10 px-4">
+      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-10 text-gray-800 font-sans">
+        <div className="border-b pb-6 mb-6">
+          <h1 className="text-3xl font-bold">{curriculo.nome}</h1>
+          <p className="text-md text-gray-600">{curriculo.email} | {curriculo.telefone}</p>
+          <p className="text-sm text-gray-600">
+            {curriculo.endereco?.rua}, {curriculo.endereco?.numero} - {curriculo.endereco?.bairro}, {curriculo.endereco?.cidade}/{curriculo.endereco?.estado} - CEP: {curriculo.endereco?.cep}
+          </p>
         </div>
 
-        <div className="mt-4">
-          <h2 className="text-lg font-semibold">Experiências</h2>
-          {curriculo.experiencias?.map((exp, index) => (
-            <div key={index} className="mb-2">
-              <p><strong>Cargo:</strong> {exp.cargo}</p>
-              <p><strong>Empresa:</strong> {exp.empresa}</p>
-              <p><strong>Período:</strong> {exp.inicio} até {exp.fim}</p>
-              <p><strong>Descrição:</strong> {exp.descricao}</p>
-            </div>
-          ))}
-        </div>
+        {curriculo.resumo && (
+          <section className="mb-8">
+            <h2 className="text-xl font-semibold border-b pb-1 mb-2">Resumo Profissional</h2>
+            <p className="text-justify leading-relaxed">{curriculo.resumo}</p>
+          </section>
+        )}
 
-        <div className="mt-4">
-          <h2 className="text-lg font-semibold">Formações</h2>
-          {curriculo.formacoes?.map((formacao, index) => (
-            <div key={index} className="mb-2">
-              <p><strong>Curso:</strong> {formacao.curso}</p>
-              <p><strong>Instituição:</strong> {formacao.instituicao}</p>
-              <p><strong>Ano de Conclusão:</strong> {formacao.anoConclusao}</p>
-            </div>
-          ))}
-        </div>
+        {curriculo.experiencias?.length > 0 && (
+          <section className="mb-8">
+            <h2 className="text-xl font-semibold border-b pb-1 mb-2">Experiência Profissional</h2>
+            {curriculo.experiencias.map((exp, index) => (
+              <div key={index} className="mb-4">
+                <h3 className="font-bold text-lg">{exp.cargo} - <span className="font-normal text-gray-700">{exp.empresa}</span></h3>
+                <p className="text-sm text-gray-600">{exp.inicio} - {exp.fim}</p>
+                <p className="mt-1 text-justify">{exp.descricao}</p>
+              </div>
+            ))}
+          </section>
+        )}
 
-        <div className="mt-4">
-          <h2 className="text-lg font-semibold">Idiomas</h2>
-          {curriculo.idiomas?.map((idioma, index) => (
-            <div key={index}>
-              <p><strong>Idioma:</strong> {idioma.idioma}</p>
-              <p><strong>Nível:</strong> {idioma.nivel}</p>
-            </div>
-          ))}
-        </div>
+        {curriculo.formacoes?.length > 0 && (
+          <section className="mb-8">
+            <h2 className="text-xl font-semibold border-b pb-1 mb-2">Formação Acadêmica</h2>
+            {curriculo.formacoes.map((formacao, index) => (
+              <div key={index} className="mb-2">
+                <h3 className="font-bold">{formacao.curso}</h3>
+                <p className="text-sm text-gray-700">{formacao.instituicao} - Conclusão: {formacao.anoConclusao}</p>
+              </div>
+            ))}
+          </section>
+        )}
+
+        {curriculo.idiomas?.length > 0 && (
+          <section>
+            <h2 className="text-xl font-semibold border-b pb-1 mb-2">Idiomas</h2>
+            <ul className="list-disc pl-6">
+              {curriculo.idiomas.map((idioma, index) => (
+                <li key={index} className="mb-1">
+                  {idioma.idioma} - {idioma.nivel}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </div>
+      <div className="pt-10 text-center">
+          <button
+            onClick={() => navigate("/visualizar-curriculos")}
+            className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition cursor-pointer "
+          >
+            Voltar para a Lista
+          </button>
+        </div>
     </div>
   );
 }

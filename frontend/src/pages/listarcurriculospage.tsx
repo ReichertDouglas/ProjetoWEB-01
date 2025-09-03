@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { FaUserCircle, FaEye, FaEdit, FaTrash } from "react-icons/fa";
 
 interface Curriculo {
   id: number;
@@ -72,8 +72,7 @@ export default function ListarCurriculosPage() {
             {curriculos.map((cv) => (
               <li
                 key={cv.id}
-                className="flex items-center justify-between bg-gray-50 p-4 rounded-md shadow-sm hover:bg-gray-100 transition"
-              >
+                className="flex items-center justify-between bg-gray-50 p-4 rounded-md shadow-sm hover:bg-gray-100 transition">
                 <div className="flex items-center gap-4">
                   <FaUserCircle className="text-4xl text-blue-500" />
                   <div>
@@ -82,24 +81,29 @@ export default function ListarCurriculosPage() {
                     <p className="text-sm text-gray-600">{cv.telefone}</p>
                   </div>
                 </div>
-                <button
-                  className="text-sm text-blue-600 hover:underline cursor-pointer"
-                  onClick={() => navigate(`/curriculo/${cv.id}`)}
-                >
-                  Visualizar
-                </button>
-                <button
-                  className="text-sm text-green-600 hover:underline cursor-pointer mr-4"
-                  onClick={() => navigate(`/editar-curriculo/${cv.id}`)}
-                >
-                  Atualizar
-                </button>
-                <button
-                  className="text-sm text-red-600 hover:underline"
-                  onClick={() => handleDelete(cv.id)}
-                >
-                  Excluir
-                </button>
+                <div className="flex items-center gap-8">
+                  <button
+                    onClick={() => navigate(`/curriculo/${cv.id}`)}
+                    title="Visualizar"
+                    className="text-blue-600 hover:text-blue-800 cursor-pointer"
+                  >
+                    <FaEye size={20} />
+                  </button>
+                  <button
+                    onClick={() => navigate(`/editar-curriculo/${cv.id}`)}
+                    title="Editar"
+                    className="text-green-600 hover:text-green-800 cursor-pointer"
+                  >
+                    <FaEdit size={20} />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(cv.id)}
+                    title="Excluir"
+                    className="text-red-600 hover:text-red-800 cursor-pointer"
+                  >
+                    <FaTrash size={20} />
+                  </button>
+                </div>
               </li>
             ))}
           </ul>

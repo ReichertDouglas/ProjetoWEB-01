@@ -8,10 +8,14 @@ const [cargos, setCargos] = useState<{ cargo: string; quantidade: number }[]>([]
 const [idiomas, setIdiomas] = useState<{ idioma: string; quantidade: number }[]>([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/estatisticas/total").then(res => setTotal(res.data.total));
-    axios.get("http://localhost:3001/estatisticas/cargos").then(res => setCargos(res.data));
-    axios.get("http://localhost:3001/estatisticas/idiomas").then(res => setIdiomas(res.data));
+    axios.get("http://localhost:3001/estatisticas/total").then(res => setTotal(res.data?.total));
+    axios.get("http://localhost:3001/estatisticas/cargos").then(res => setCargos(res?.data));
+    axios.get("http://localhost:3001/estatisticas/idiomas").then(res => setIdiomas(res?.data));
   }, []);
+
+  if (total === 0) {
+    return null;
+  }
 
   const cargosData = [
     ["Cargo", "Quantidade"],
@@ -24,7 +28,7 @@ const [idiomas, setIdiomas] = useState<{ idioma: string; quantidade: number }[]>
 
   return (
     <div className="p-6 bg-white/10 rounded-lg shadow-md mx-auto max-w-4xl text-white">
-      <h2 className="text-3xl font-bold mb-6">Resumo Geral dos Currículos</h2>
+      <h2 className="text-3xl font-bold mb-6 text-center">Resumo Geral dos Currículos</h2>
       
       <div className="text-center text-5xl font-extrabold mb-8">
         {total}

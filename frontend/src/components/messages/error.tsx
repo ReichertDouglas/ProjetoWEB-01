@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 
-export default function Error() {
+export const errorAction = () => {
   Swal.fire({
     title: "Erro ao cadastrar",
     text: "Currículo não cadastrado",
