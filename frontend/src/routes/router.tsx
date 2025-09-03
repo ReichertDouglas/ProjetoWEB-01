@@ -15,7 +15,7 @@ export const Router = () => {
   return (
     <BrowserRouter>
     <Header />
-      <main className="bg-blue-400 min-h-screen min-w-screen flex-grow py-12">
+      <main className="bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500">
         <Suspense fallback={<div>Carregando...</div>}>
           <Routes>
             <Route path="/" element={<InicialPage />} />

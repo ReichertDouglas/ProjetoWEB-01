@@ -27,19 +27,18 @@ export default function UltimosAdicionados() {
     if (curriculos.length === 0) return null;
 
     return (
-        <div className="mt-10 bg-white/10 p-6 rounded-lg">
-            <h2 className="text-2xl font-semibold mb-4">Últimos Currículos Adicionados</h2>
+        <div className=" bg-white/10 p-6 rounded-lg max-w-2xl  shadow-md">
+            <h2 className="text-2xl font-semibold mb-4 text-center">Últimos Currículos Adicionados</h2>
             <ul className="space-y-4">
                 {curriculos.map((curriculo) => (
-                    <li key={curriculo.id} className="bg-white/10 p-4 rounded-lg flex justify-between items-center">
+                    <li key={curriculo.id} className="bg-white/10 p-4 rounded-lg flex justify-between">
                         <div>
                             <p className="text-lg font-bold">{curriculo.nome}</p>
                             <p className="text-gray-300">{curriculo.experiencias[0]?.cargo || 'Cargo não informado'}</p>
                         </div>
                         <button
                             className="cursor-pointer bg-cyan-400 text-blue-900 font-semibold px-4 py-2 rounded hover:bg-cyan-300 transition"
-                            onClick={() => handleVisualizar(curriculo.id)}
-                        >
+                            onClick={() => handleVisualizar(curriculo.id)}>
                             Visualizar
                         </button>
                     </li>

@@ -76,3 +76,44 @@ app.delete("/curriculos/:id", (req, res) => {
   writeCurriculos(novos);
   res.status(204).end();
 });
+
+app.get("/estatisticas/total", (req, res) => {
+  const curriculos = readCurriculos();
+  res.json({ total: curriculos.length });
+});
+
+app.get("/estatisticas/cargos", (req, res) => {
+  const curriculos = readCurriculos();
+  const contagem = {};
+
+  curriculos.forEach(curriculo => {
+    curriculo.experiencias?.forEach(exp => {
+      contagem[exp.cargo] = (contagem[exp.cargo] || 0) + 1;
+    });
+  });
+
+  const top = Object.entries(contagem)
+    .map(([cargo, quantidade]) => ({ cargo, quantidade }))
+    .sort((a, b) => b.quantidade - a.quantidade)
+    .slice(0, 3);
+
+  res.json(top);
+});
+
+app.get("/estatisticas/idiomas", (req, res) => {
+  const curriculos = readCurriculos();
+  const contagem = {};
+
+  curriculos.forEach(curriculo => {
+    curriculo.idiomas?.forEach(idioma => {
+      contagem[idioma.idioma] = (contagem[idioma.idioma] || 0) + 1;
+    });
+  });
+
+  const top = Object.entries(contagem)
+    .map(([idioma, quantidade]) => ({ idioma, quantidade }))
+    .sort((a, b) => b.quantidade - a.quantidade)
+    .slice(0, 3);
+
+  res.json(top);
+});

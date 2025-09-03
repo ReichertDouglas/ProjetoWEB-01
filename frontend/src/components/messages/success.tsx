@@ -2,10 +2,10 @@ import Swal from "sweetalert2";
 import confetti from "canvas-confetti";
 import { useNavigate } from 'react-router-dom';
 
-const navigate = useNavigate();
 const NAVIGATE_URL = '/visualizar-curriculos';
 
 export const successCreate = () => {
+  const navigate = useNavigate();
   confetti({
     particleCount: 600,
     spread: 200,
@@ -26,6 +26,7 @@ export const successCreate = () => {
 }
 
 export const successUpdate = () => {
+  const navigate = useNavigate();
   Swal.fire({
     title: "Currículo atualizado com sucesso!",
     text: "Seu currículo foi atualizado com sucesso!",
