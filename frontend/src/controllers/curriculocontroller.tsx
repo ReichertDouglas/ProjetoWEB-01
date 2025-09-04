@@ -3,7 +3,7 @@ import axios from "axios";
 
 const URL_BASE = "http://localhost:3001/curriculos";
 
-const onSubmit = async (curriculo: curriculo) => {
+const criarCurriculo = async (curriculo: curriculo) => {
     const response = await axios.post(URL_BASE, curriculo);
     return response;
 };
@@ -18,7 +18,7 @@ const fetchCurriculoById = async (id: string) => {
   }
 };
 
-const buscarUltimosCurriculos = async (): Promise<curriculo[]> => {
+const buscarUltimosCurriculos = async () => {
   try {
     const response = await axios.get(URL_BASE);
     const dados = response.data;
@@ -30,4 +30,31 @@ const buscarUltimosCurriculos = async (): Promise<curriculo[]> => {
   }
 };
 
-export { onSubmit, fetchCurriculoById, buscarUltimosCurriculos };
+const listarCurriculos = async () => {
+  const response = await axios.get(URL_BASE);
+  return response.data;
+};
+
+const deletarCurriculo = async (id: number) => {
+  await axios.delete(`${URL_BASE}/${id}`);
+};
+
+const atualizarCurriculo = async (id: string, data: curriculo) => {
+  const response = await axios.put(`${URL_BASE}/${id}`, data);
+  return response;
+};
+
+const buscarCurriculoPorId = async (id: string) => {
+  const response = await axios.get(`${URL_BASE}/${id}`);
+  return response.data;
+};
+
+export {
+  criarCurriculo,
+  fetchCurriculoById,
+  buscarUltimosCurriculos,
+  listarCurriculos,
+  deletarCurriculo,
+  atualizarCurriculo,
+  buscarCurriculoPorId
+};

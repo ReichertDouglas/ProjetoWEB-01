@@ -3,13 +3,13 @@ import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { IMaskInput } from 'react-imask';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
 
 import { curriculo } from './types/curriculo';
 import { nivel } from './types/nivel';
 import { CurriculoSchema } from './schemas/curriculoschema';
 import { successCreate, successUpdate } from '../components/messages/success';
 import { errorAction } from '../components/messages/error';
+import { atualizarCurriculo, buscarCurriculoPorId, criarCurriculo } from '../controllers/curriculocontroller';
 
 export default function GerenciarCurriculoPage() {
   const navigate = useNavigate();
@@ -39,13 +39,13 @@ export default function GerenciarCurriculoPage() {
     name: 'idiomas',
   });
 
-  useEffect(() => {
-    if (!id) return;
+    useEffect(() => {
+      if (!id) return;
 
     const fetchCurriculo = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/curriculos/${id}`);
-        reset(response.data);
+        const data = await buscarCurriculoPorId(id);
+        reset(data);
       } catch (error) {
         console.error('Erro ao carregar currículo:', error);
         errorAction();
@@ -56,28 +56,26 @@ export default function GerenciarCurriculoPage() {
   }, [id, reset]);
 
     const onSubmit = async (data: curriculo) => {
-    try {
-        let response;
+      try {
+          let response;
 
-        if (id) {
-        response = await axios.put(`http://localhost:3001/curriculos/${id}`, data);
-        } else {
-        response = await axios.post(`http://localhost:3001/curriculos`, data);
-        }
+          if (id) {
+            response = await atualizarCurriculo(id, data);
+          } else {
+            response = await criarCurriculo(data);
+          }
 
-        if (response.status === 200 || response.status === 201) {
-        if (id) {
-            successUpdate(navigate);
-        } else {
-            successCreate(navigate);
-        }
-        } else {
-        throw new Error();
-        }
-    } catch (error) {
-        console.error('Erro ao salvar currículo:', error);
-        errorAction();
-    }
+          if (response.status === 200 || response.status === 201) {
+          if (id) {
+              successUpdate(navigate);
+          } else {
+              successCreate(navigate);
+          }
+          }
+      } catch (error) {
+          console.error('Erro ao salvar currículo:', error);
+          errorAction();
+      }
     };
 
   return (

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { FaUserCircle, FaEye, FaEdit, FaTrash } from "react-icons/fa";
+import { deletarCurriculo, listarCurriculos } from "../controllers/curriculocontroller";
 
 interface Curriculo {
   id: number;
@@ -18,13 +18,20 @@ export default function ListarCurriculosPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:3001/curriculos")
-      .then((res) => {
-        setCurriculos(res.data)
-        setError(null)
-        setLoading(false)
-      })
-      .catch((err) => console.error(err));
+    const fetchData = async () => {
+      try {
+        const data = await listarCurriculos();
+        setCurriculos(data);
+        setError(null);
+      } catch (err) {
+        setError("Erro ao carregar os currículos.");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handleDelete = (id: number) => {
@@ -40,7 +47,7 @@ export default function ListarCurriculosPage() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`http://localhost:3001/curriculos/${id}`);
+          await deletarCurriculo(id);
           setCurriculos((prev) => prev.filter((c) => c.id !== id));
           Swal.fire('Excluído!', 'O currículo foi removido.', 'success');
         } catch (err) {
