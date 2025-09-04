@@ -18,4 +18,16 @@ const fetchCurriculoById = async (id: string) => {
   }
 };
 
-export { onSubmit, fetchCurriculoById };
+const buscarUltimosCurriculos = async (): Promise<curriculo[]> => {
+  try {
+    const response = await axios.get(URL_BASE);
+    const dados = response.data;
+    const ultimos = dados.sort((a, b) => b.id - a.id).slice(0, 3);
+    return ultimos;
+  } catch (error) {
+    console.error("Erro ao buscar os últimos currículos:", error);
+    return [];
+  }
+};
+
+export { onSubmit, fetchCurriculoById, buscarUltimosCurriculos };

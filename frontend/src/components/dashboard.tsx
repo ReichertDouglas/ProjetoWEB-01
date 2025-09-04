@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
-import axios from "axios";
+import { buscarCargos, buscarIdiomas, buscarTotal } from "../controllers/estatisticascontroller";
 
 export default function Dashboard() {
   const [total, setTotal] = useState(0);
-const [cargos, setCargos] = useState<{ cargo: string; quantidade: number }[]>([]);
-const [idiomas, setIdiomas] = useState<{ idioma: string; quantidade: number }[]>([]);
+  const [cargos, setCargos] = useState<{ cargo: string; quantidade: number }[]>([]);
+  const [idiomas, setIdiomas] = useState<{ idioma: string; quantidade: number }[]>([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/estatisticas/total").then(res => setTotal(res.data?.total));
-    axios.get("http://localhost:3001/estatisticas/cargos").then(res => setCargos(res?.data));
-    axios.get("http://localhost:3001/estatisticas/idiomas").then(res => setIdiomas(res?.data));
+    async function carregarDados() {
+      const [t, c, i] = await Promise.all([
+        buscarTotal(),
+        buscarCargos(),
+        buscarIdiomas()
+      ]);
+      setTotal(t);
+      setCargos(c);
+      setIdiomas(i);
+    }
+
+    carregarDados();
   }, []);
 
   if (total === 0) {
@@ -19,11 +28,12 @@ const [idiomas, setIdiomas] = useState<{ idioma: string; quantidade: number }[]>
 
   const cargosData = [
     ["Cargo", "Quantidade"],
-    ...cargos.map(item => [item?.cargo, item?.quantidade])
+    ...cargos.map(item => [item.cargo, item.quantidade])
   ];
+
   const idiomasData = [
     ["Idioma", "Quantidade"],
-    ...idiomas.map(item => [item?.idioma, item?.quantidade])
+    ...idiomas.map(item => [item.idioma, item.quantidade])
   ];
 
   return (

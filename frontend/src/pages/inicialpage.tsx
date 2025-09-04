@@ -1,7 +1,9 @@
+import React from 'react';
 import { FaFileAlt, FaArrowRight } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import UltimosAdicionados from "../components/ultimosadicionados"
-import Dashboard from '../components/dashboard';
+
+const UltimosAdicionados = React.lazy(() => import("../components/ultimosadicionados"));
+const Dashboard = React.lazy(() => import("../components/dashboard"));
 
 export default function InicialPage() {
     const navigate = useNavigate();

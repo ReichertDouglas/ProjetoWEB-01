@@ -1,23 +1,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import type { curriculo } from "../pages/types/curriculo";
+import { buscarUltimosCurriculos } from "../controllers/curriculocontroller";
 
 export default function UltimosAdicionados() {
     const [curriculos, setCurriculos] = useState<curriculo[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get("http://localhost:3001/curriculos")
-            .then((response) => {
-                const dados = response.data;
-                // Ordena por ID decrescente e pega os 3 últimos
-                const ultimos = dados.sort((a, b) => b.id - a.id).slice(0, 3);
-                setCurriculos(ultimos);
-            })
-            .catch((error) => {
-                console.error("Erro ao buscar currículos:", error);
-            });
+        async function carregarUltimos() {
+            const ultimos = await buscarUltimosCurriculos();
+            setCurriculos(ultimos);
+        }
+        carregarUltimos();
     }, []);
 
     const handleVisualizar = (id) => {
