@@ -23,7 +23,7 @@ export const Router = () => {
   return (
     <BrowserRouter>
       <Header />
-      <main className="bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500 min-h-screen">
+      <main className="bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500 min-h-screen max-w-full">
         <Suspense 
           fallback={
             <div className="flex justify-center items-center h-[calc(100vh-100px)]">

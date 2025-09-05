@@ -37,7 +37,7 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="p-6 bg-white/10 rounded-lg shadow-md mx-auto max-w-4xl text-white">
+    <div className="p-6 bg-white/10 rounded-lg shadow-md text-white">
       <h2 className="text-3xl font-bold mb-6 text-center">Resumo Geral dos Currículos</h2>
       
       <div className="text-center text-5xl font-extrabold mb-8">

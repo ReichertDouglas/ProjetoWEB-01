@@ -10,9 +10,9 @@ export default function InicialPage() {
     const handleForm = () => navigate('/criar-curriculo');
 
     return (
-        <div className='flex flex-col justify-center items-center p-8 min-h-screen text-white'>
-            <div className='shadow-md'>
-                <div className="bg-black/50 p-10 rounded-xl text-center max-w-2xl w-full">
+        <div className='flex flex-col items-center min-h-screen break-words text-white p-8 gap-8 md:px-30 md:py-15'>
+            <div className='shadow-md w-full min-h-fit'>
+                <div className="bg-black/50 p-10 rounded-xl text-center">
                     <FaFileAlt className="text-5xl text-cyan-400 animate-bounce mx-auto mb-4" />
                     <h1 className="text-4xl font-bold mb-4 animate-fade-in">
                         Construa seu futuro profissional
@@ -25,10 +25,10 @@ export default function InicialPage() {
                     </button>
                 </div>
             </div>
-            <div className='py-10'>
+            <div className='w-full'>
                 <UltimosAdicionados/>
             </div>
-            <div>
+            <div className='w-full'>
                 <Dashboard/>
             </div>
         </div>

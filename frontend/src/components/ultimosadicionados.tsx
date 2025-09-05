@@ -22,7 +22,7 @@ export default function UltimosAdicionados() {
     if (curriculos.length === 0) return null;
 
     return (
-        <div className=" bg-white/10 p-6 rounded-lg max-w-2xl  shadow-md">
+        <div className=" bg-white/10 p-6 rounded-lg shadow-md">
             <h2 className="text-2xl font-semibold mb-4 text-center">Últimos Currículos Adicionados</h2>
             <ul className="space-y-4">
                 {curriculos.map((curriculo) => (

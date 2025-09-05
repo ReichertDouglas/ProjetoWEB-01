@@ -66,9 +66,9 @@ export default function ListarCurriculosPage() {
   }
 
   return (
-    <div className="min-h-screen py-12 px-4">
-      <div className="max-w-5xl mx-auto bg-white shadow-md rounded-lg p-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">
+    <div className="min-h-screen py-8 px-3 md:py-15 md:px-30">
+      <div className="max-w-5xl mx-auto bg-white/10 shadow-md rounded-lg p-6">
+        <h1 className="text-3xl font-bold text-white mb-6">
           Currículos Cadastrados
         </h1>
 
@@ -79,34 +79,34 @@ export default function ListarCurriculosPage() {
             {curriculos.map((cv) => (
               <li
                 key={cv.id}
-                className="flex items-center justify-between bg-gray-50 p-4 rounded-md shadow-sm hover:bg-gray-100 transition">
+                className="flex justify-between bg-white/30 p-4 rounded-md shadow-sm hover:scale-101 transition">
                 <div className="flex items-center gap-4">
-                  <FaUserCircle className="text-4xl text-blue-500" />
+                  <FaUserCircle className="text-4xl text-white" />
                   <div>
-                    <p className="text-lg font-semibold">{cv.nome}</p>
-                    <p className="text-sm text-gray-600">{cv.email}</p>
-                    <p className="text-sm text-gray-600">{cv.telefone}</p>
+                    <p className="text-lg text-white font-semibold">{cv.nome}</p>
+                    <p className="text-sm text-white">{cv.email}</p>
+                    <p className="text-sm text-white">{cv.telefone}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-8">
+                <div className="flex flex-col gap-3">
                   <button
                     onClick={() => navigate(`/curriculo/${cv.id}`)}
                     title="Visualizar"
-                    className="text-blue-600 hover:text-blue-800 cursor-pointer"
+                    className="text-blue-900 hover:text-blue-600 cursor-pointer"
                   >
                     <FaEye size={20} />
                   </button>
                   <button
                     onClick={() => navigate(`/editar-curriculo/${cv.id}`)}
                     title="Editar"
-                    className="text-green-600 hover:text-green-800 cursor-pointer"
+                    className="text-green-900 hover:text-green-600 cursor-pointer"
                   >
                     <FaEdit size={20} />
                   </button>
                   <button
                     onClick={() => handleDelete(cv.id)}
                     title="Excluir"
-                    className="text-red-600 hover:text-red-800 cursor-pointer"
+                    className="text-red-900 hover:text-red-600 cursor-pointer"
                   >
                     <FaTrash size={20} />
                   </button>

@@ -8,11 +8,11 @@ export default function Nav() {
   const VISUALIZAR_CURRICULO = "/visualizar-curriculos";
 
   return (
-    <nav className="flex justify-center">
-      <ul className="cursor-pointer hidden sm:flex gap-10 text-sm p-3">
-        <li className="hover:bg-gray-500 hover:text-red-300 rounded p-1"><Link to="/"> Início </Link></li>
-        <li className="hover:bg-gray-500 hover:text-red-300 rounded p-1"><Link to={CRIAR_CURRICULO}> Criar </Link></li>
-        <li className="hover:bg-gray-500 hover:text-red-300 rounded p-1"><Link to={VISUALIZAR_CURRICULO}> Visualizar currículos </Link></li>
+    <nav className="flex justify-center p-0 m-0">
+      <ul className="cursor-pointer hidden sm:flex text-md font-semibold p-0">
+        <li className="hover:bg-gradient-to-t from-blue-700 via-blue-950 to-blue-950 pb-2 px-8"><Link to="/"> Início </Link></li>
+        <li className="hover:bg-gradient-to-t from-blue-700 via-blue-950 to-blue-950 pb-2 px-8"><Link to={CRIAR_CURRICULO}> Criar </Link></li>
+        <li className="hover:bg-gradient-to-t from-blue-700 via-blue-950 to-blue-950 pb-2 px-8"><Link to={VISUALIZAR_CURRICULO}> Visualizar currículos </Link></li>
       </ul>
       <div className="sm:hidden fixed bottom-4 right-4 z-50">
         <button
@@ -23,9 +23,9 @@ export default function Nav() {
         {isOpen && (
           <ul className="absolute bg-gray-900 p-6 rounded-2xl right-0 bottom-18" 
           onClick={() => setIsOpen(false)}>
-            <li className="p-1 hover:bg-gray-500  hover:text-red-300 rounded"> <Link to="/"> Início </Link> </li>
-            <li className="p-1 hover:bg-gray-500  hover:text-red-300 rounded"> <Link to={CRIAR_CURRICULO}> Criar </Link> </li>
-            <li className="p-1 hover:bg-gray-500  hover:text-red-300 rounded"> <Link to={VISUALIZAR_CURRICULO}> Visualizar currículos </Link> </li>
+            <li className="p-1 hover:scale-101  hover:text-red-300 rounded"> <Link to="/"> Início </Link> </li>
+            <li className="p-1 hover:scale-101  hover:text-red-300 rounded"> <Link to={CRIAR_CURRICULO}> Criar </Link> </li>
+            <li className="p-1 hover:scale-101  hover:text-red-300 rounded"> <Link to={VISUALIZAR_CURRICULO}> Visualizar currículos </Link> </li>
           </ul>
         )}
       </div>
