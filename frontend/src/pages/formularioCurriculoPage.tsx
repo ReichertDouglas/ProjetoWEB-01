@@ -194,38 +194,38 @@ export default function GerenciarCurriculoPage() {
         <h2 className="text-xl font-bold">Experiência Profissional</h2>
         {experienciaFields.map((item, index) => (
           <div key={item.id} className="text-center">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 text-sm gap-8">
               <div>
-                <p className="text-sm mt-10"> Cargo </p>
+                <p> Cargo </p>
                 <input
                   {...register(`experiencias.${index}.cargo`)}
-                  className="border-1 rounded"
+                  className="border-1 rounded w-full"
                 />
               </div>
 
               <div>
-                <p className="text-sm mt-10"> Empresa </p>
+                <p> Empresa </p>
                 <input
                   {...register(`experiencias.${index}.empresa`)}
-                  className="border-1 rounded"
+                  className="border-1 rounded w-full"
                 />
               </div>
 
               <div>
-                <p className="text-sm mt-10"> Início </p>
+                <p> Início </p>
                 <input
                   type="date"
                   {...register(`experiencias.${index}.inicio`)}
-                  className="border-1 rounded"
+                  className="border-1 rounded w-full"
                 />
               </div>
 
               <div>
-                <p className="text-sm mt-10"> Fim </p>
+                <p> Fim </p>
                 <input
                   type="date"
                   {...register(`experiencias.${index}.fim`)}
-                  className="border-1 rounded"
+                  className="border-1 rounded w-full"
                 />
               </div>
             </div>
@@ -241,7 +241,7 @@ export default function GerenciarCurriculoPage() {
             <button
               type="button"
               onClick={() => removeExperiencia(index)}
-              className="text-red-500 mt-2"
+              className="text-red-500 mt-2 bg-black/30 p-2 rounded-md"
             >
               Remover Experiência
             </button>
@@ -265,36 +265,35 @@ export default function GerenciarCurriculoPage() {
 
         <h2 className="text-xl font-bold">Formação Acadêmica</h2>
         {formacaoFields.map((item, index) => (
-          <div
-            key={item.id}
-            className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center"
-          >
-            <div>
-              <p className="text-sm mt-10"> Curso </p>
-              <input
-                {...register(`formacoes.${index}.curso`)}
+          <div key={item.id} className="text-center text-sm">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center text-sm">
+              <div>
+                <p> Curso </p>
+                <input
+                  {...register(`formacoes.${index}.curso`)}
                 className="border-1 rounded"
-              />
-            </div>
-            <div>
-              <p className="text-sm mt-10"> Instituição </p>
-              <input
-                {...register(`formacoes.${index}.instituicao`)}
+                />
+              </div>
+              <div>
+                <p> Instituição </p>
+                <input
+                  {...register(`formacoes.${index}.instituicao`)}
                 className="border-1 rounded"
-              />
-            </div>
-            <div>
-              <p className="text-sm mt-10"> Ano de Conclusão </p>
-              <input
-                type="text"
-                {...register(`formacoes.${index}.anoConclusao`)}
+                />
+              </div>
+              <div>
+                <p> Ano de Conclusão </p>
+                <input
+                  type="text"
+                  {...register(`formacoes.${index}.anoConclusao`)}
                 className="border-1 rounded"
-              />
+                />
+              </div>
             </div>
             <button
               type="button"
               onClick={() => removeFormacao(index)}
-              className="text-red-500"
+              className="text-red-500 mt-4 bg-black/30 p-2 rounded-md"
             >
               Remover Formação
             </button>
@@ -314,32 +313,34 @@ export default function GerenciarCurriculoPage() {
         {idiomaFields.map((item, index) => (
           <div
             key={item.id}
-            className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center"
+            className="text-center text-sm"
           >
-            <div>
-              <p className="text-sm mt-10"> Idioma </p>
-              <input
-                {...register(`idiomas.${index}.idioma`)}
-                className="border-1 rounded"
-              />
-            </div>
-            <div>
-              <p className="text-sm mt-10"> Nível </p>
-              <select
-                {...register(`idiomas.${index}.nivel`)}
-                className="border-1 rounded"
-              >
-                <option value="">Selecione o nível</option>
-                <option value="BASICO">Básico</option>
-                <option value="INTERMEDIARIO">Intermediário</option>
-                <option value="AVANCADO">Avançado</option>
-                <option value="FLUENTE">Fluente</option>
-              </select>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center text-sm">
+              <div>
+                <p> Idioma </p>
+                <input
+                  {...register(`idiomas.${index}.idioma`)}
+                className="border-1 rounded w-full"
+                />
+              </div>
+              <div>
+                <p> Nível </p>
+                <select
+                  {...register(`idiomas.${index}.nivel`)}
+                  className="border-1 rounded w-full select-auto"
+                >
+                  <option selected>Selecione o nível</option>
+                  <option value="BASICO">Básico</option>
+                  <option value="INTERMEDIARIO">Intermediário</option>
+                  <option value="AVANCADO">Avançado</option>
+                  <option value="FLUENTE">Fluente</option>
+                </select>
+              </div>
             </div>
             <button
               type="button"
               onClick={() => removeIdioma(index)}
-              className="text-red-500"
+              className="text-red-500 mt-4 bg-black/30 p-2 rounded-md"
             >
               Remover Idioma
             </button>
