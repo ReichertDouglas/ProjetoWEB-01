@@ -39,5 +39,42 @@
     "telefone": "(47) 93343-3434",
     "email": "gabrielsimon001@gmail.com",
     "nome": "Gabriel Simon"
+  },
+  {
+    "id": 2,
+    "idiomas": [
+      {
+        "idioma": "ingles",
+        "nivel": "BASICO"
+      }
+    ],
+    "formacoes": [
+      {
+        "anoConclusao": 2024,
+        "instituicao": "senai",
+        "curso": "teste"
+      }
+    ],
+    "experiencias": [
+      {
+        "cargo": "Estágiario",
+        "empresa": "Berkan",
+        "inicio": "2025-08-18",
+        "fim": "2025-09-24",
+        "descricao": "sdfafasdgsdgsdgdfsgdfsgdfgdfgdfgdfgdf"
+      }
+    ],
+    "resumo": "teste qwkfepifbafhasbgfçkgfaowyisfo~riasnfkçewhakgbelhjgfeyuibae",
+    "endereco": {
+      "estado": "SC",
+      "cidade": "Blumenau",
+      "bairro": "Valparaíso",
+      "numero": 686,
+      "rua": "Rua Antonio Zendron",
+      "cep": "89023202"
+    },
+    "telefone": "(47) 98837-3410",
+    "email": "douglas_reichert@estudante.sc.senai.br",
+    "nome": "Douglas Reichert"
   }
 ]
