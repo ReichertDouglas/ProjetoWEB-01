@@ -271,14 +271,14 @@ export default function GerenciarCurriculoPage() {
                 <p> Curso </p>
                 <input
                   {...register(`formacoes.${index}.curso`)}
-                className="border-1 rounded"
+                className="border-1 rounded w-full"
                 />
               </div>
               <div>
                 <p> Instituição </p>
                 <input
                   {...register(`formacoes.${index}.instituicao`)}
-                className="border-1 rounded"
+                className="border-1 rounded w-full"
                 />
               </div>
               <div>
@@ -286,7 +286,7 @@ export default function GerenciarCurriculoPage() {
                 <input
                   type="text"
                   {...register(`formacoes.${index}.anoConclusao`)}
-                className="border-1 rounded"
+                className="border-1 rounded w-full"
                 />
               </div>
             </div>
