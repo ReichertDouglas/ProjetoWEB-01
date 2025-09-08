@@ -1,5 +1,5 @@
 export type formacao = {
-    curso: string;
-    instituicao: string;
-    anoConclusao: number;
+    curso?: string;
+    instituicao?: string;
+    anoConclusao?: number;
 }

@@ -1,6 +1,6 @@
 import { nivel } from "./nivel";
 
 export type idioma = {
-    idioma: string;
-    nivel: nivel;
+    idioma?: string;
+    nivel?: nivel;
 }

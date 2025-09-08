@@ -13,8 +13,8 @@ export const CurriculoSchema: yup.ObjectSchema<curriculo> = yup.object({
     bairro: yup.string().required('Bairro é obrigatório'),
     cidade: yup.string().required('Cidade é obrigatória'),
     estado: yup.string().required('Estado é obrigatório'),
-  }).required(),
-  resumo: yup.string().required('Resumo é obrigatório').min(30, 'Resumo deve ter no mínimo 30 caracteres'),
+  }),
+  resumo: yup.string(),
   
   experiencias: yup.array().of(
     yup.object({
@@ -22,9 +22,9 @@ export const CurriculoSchema: yup.ObjectSchema<curriculo> = yup.object({
       empresa: yup.string().required('Empresa é obrigatória'),
       inicio: yup.string().required('Data de início é obrigatória'),
       fim: yup.string().required('Data de fim é obrigatória'),
-      descricao: yup.string().required('Descrição é obrigatória'),
+      descricao: yup.string(),
     }).required()
-  ).min(1, 'Adicione pelo menos uma experiência').required(),
+  ),
 
   formacoes: yup.array().of(
     yup.object({
@@ -32,7 +32,7 @@ export const CurriculoSchema: yup.ObjectSchema<curriculo> = yup.object({
       instituicao: yup.string().required('Instituição é obrigatória'),
       anoConclusao: yup.number().required('Ano de conclusão é obrigatório'),
     }).required()
-  ).min(1, 'Adicione pelo menos uma formação').required(),
+  ),
 
   idiomas: yup.array().of(
     yup.object({
@@ -40,6 +40,6 @@ export const CurriculoSchema: yup.ObjectSchema<curriculo> = yup.object({
         nivel: yup.mixed<nivel>().oneOf([nivel.BASICO, nivel.INTERMEDIARIO, nivel.AVANCADO, nivel.FLUENTE]).required('Nível é obrigatório'),
 
     }).required()
-  ).min(1, 'Adicione pelo menos um idioma').required(),
+  ),
     id: yup.number().transform(value => (isNaN(value) ? undefined : value)).optional()
 });
