@@ -7,39 +7,39 @@ export const CurriculoSchema: yup.ObjectSchema<curriculo> = yup.object({
   email: yup.string().required('Email é obrigatório').email('Email inválido'),
   telefone: yup.string().required('Telefone é obrigatório'),
   endereco: yup.object({
-    cep: yup.string().required('CEP é obrigatório'),
-    rua: yup.string().required('Rua é obrigatória'),
-    numero: yup.number().required('Número é obrigatório'),
-    bairro: yup.string().required('Bairro é obrigatório'),
-    cidade: yup.string().required('Cidade é obrigatória'),
-    estado: yup.string().required('Estado é obrigatório'),
+    cep: yup.string(),
+    rua: yup.string(),
+    numero: yup.number().optional(),
+    bairro: yup.string(),
+    cidade: yup.string(),
+    estado: yup.string(),
   }),
   resumo: yup.string(),
   
   experiencias: yup.array().of(
     yup.object({
-      cargo: yup.string().required('Cargo é obrigatório'),
-      empresa: yup.string().required('Empresa é obrigatória'),
-      inicio: yup.string().required('Data de início é obrigatória'),
-      fim: yup.string().required('Data de fim é obrigatória'),
+      cargo: yup.string(),
+      empresa: yup.string(),
+      inicio: yup.string(),
+      fim: yup.string(),
       descricao: yup.string(),
-    }).required()
+    })
   ),
 
   formacoes: yup.array().of(
     yup.object({
-      curso: yup.string().required('Curso é obrigatório'),
-      instituicao: yup.string().required('Instituição é obrigatória'),
-      anoConclusao: yup.number().required('Ano de conclusão é obrigatório'),
-    }).required()
+      curso: yup.string(),
+      instituicao: yup.string(),
+      anoConclusao: yup.number(),
+    })
   ),
 
   idiomas: yup.array().of(
     yup.object({
-      idioma: yup.string().required('Idioma é obrigatório'),
-        nivel: yup.mixed<nivel>().oneOf([nivel.BASICO, nivel.INTERMEDIARIO, nivel.AVANCADO, nivel.FLUENTE]).required('Nível é obrigatório'),
+      idioma: yup.string(),
+        nivel: yup.mixed<nivel>().oneOf([nivel.BASICO, nivel.INTERMEDIARIO, nivel.AVANCADO, nivel.FLUENTE]),
 
-    }).required()
+    })
   ),
     id: yup.number().transform(value => (isNaN(value) ? undefined : value)).optional()
 });
