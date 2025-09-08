@@ -8,7 +8,7 @@ export type curriculo = {
     nome: string;
     email: string;
     telefone: string;
-    endereco: endereco;
+    endereco?: endereco;
     resumo?: string;
     experiencias?: experiencia[];
     formacoes?: formacao[];
